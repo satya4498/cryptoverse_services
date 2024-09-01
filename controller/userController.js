@@ -46,11 +46,7 @@ const signIn = async (req, res) => {
             return res.status(401).send({ message: 'Either Email or password is wrong!!' });
         }
         const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, { expiresIn: '2d' });
-        res.cookie('token', token,{ 
-            httpOnly: true, 
-            sameSite: 'None', 
-            secure: true 
-          }).status(200).send({ message: 'User logged in successfully'});
+        res.cookie('token', token,{httpOnly: true,path:'/'}).status(200).send({ message: 'User logged in successfully'});
     } catch (e) {
         res.status(400).send({ message: 'Something went wrong' });
     }
