@@ -1,0 +1,37 @@
+{
+  "name": "cryptoverse_services",
+  "version": "1.0.0",
+  "description": "This is backend for cryptoverse services",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "nodemon index.js",
+    "lint": "eslint.",
+    "test": "npm run test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/satya4498/cryptoverse-services"
+  },
+  "keywords": [
+    "cryptoverse-satyam",
+    "cryptoverse-backend",
+    "Satya4498"
+  ],
+  "author": "SS7859868@gmail.com (Satyam Kumar)",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^1.7.7",
+    "bcrypt": "^5.1.1",
+    "body-parser": "^1.20.2",
+    "cookie-parser": "^1.4.6",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "errorhandler": "^1.5.1",
+    "express": "^4.18.2",
+    "jsonwebtoken": "^9.0.2",
+    "mongoose": "^8.6.0",
+    "nodemon": "^3.1.4",
+    "xlsx": "^0.18.5"
+  }
+}
