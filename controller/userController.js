@@ -33,11 +33,15 @@ const signUp = async (req, res) => {
 const signIn = async (req, res) => {
     try {
         const { email, password } = req.body;
+        console.log(req.body);
         const user = await getUser({ email });
+        console.log(user);
+        
         if (!user) {
             return res.status(401).send({ message: 'Either Email or password is wrong!!' });
         }
         const isMatch = bcrypt.compare(password, user.password);
+        console.log({isMatch});
         if (!isMatch) {
             return res.status(401).send({ message: 'Either Email or password is wrong!!' });
         }
