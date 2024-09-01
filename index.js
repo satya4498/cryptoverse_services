@@ -9,6 +9,12 @@ const { connection } = require("./database/dbConnection");
 
 
 const app = express();
+// app.use({
+//     origin: config.corsOrigin,
+//     credentials: true,
+//     allowedHeaders: ['Origin', 'X-Requested-With', 'Content-Type', 'Authorization'],  // This needs to match the allowed headers in the frontend code. Replace 'Origin', 'X-Requested-With', 'Content-Type' with the actual headers that your frontend code sends.  // Add more headers as needed.  // Replace 'corsOrigin' with the actual URL of your frontend code.  // Replace 'your-client-id' with your Google Cloud Platform client ID.  // Replace 'your-client-secret' with your Google Cloud Platform client secret.
+//     credentials: true,
+// })
 app.use(cors());
 app.use(cookieParser())
 app.use(express.json())

@@ -32,21 +32,25 @@ const signUp = async (req, res) => {
 
 const signIn = async (req, res) => {
     try {
-        const { email, password } = req.body;
-        console.log(req.body);
+        const { email, password } = req.query;
+        console.log('entered in signin',req.query);
         const user = await getUser({ email });
         console.log(user);
         
         if (!user) {
             return res.status(401).send({ message: 'Either Email or password is wrong!!' });
         }
-        const isMatch = bcrypt.compare(password, user.password);
+        const isMatch = await bcrypt.compare(password, user.password);
         console.log({isMatch});
         if (!isMatch) {
             return res.status(401).send({ message: 'Either Email or password is wrong!!' });
         }
         const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, { expiresIn: '2d' });
-        res.cookie('token', token).status(200).send({ message: 'User logged in successfully'});
+        res.cookie('token', token,{ 
+            httpOnly: true, 
+            sameSite: 'None', 
+            secure: true 
+          }).status(200).send({ message: 'User logged in successfully'});
     } catch (e) {
         res.status(400).send({ message: 'Something went wrong' });
     }
