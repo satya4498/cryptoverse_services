@@ -3,6 +3,7 @@ const cookieParser = require('cookie-parser');
 const cors = require('cors');
 const config = require('./config');
 const {userRoute} = require('./routes/userRoutes');
+const {cryptoRoute} = require('./routes/cryptoRoute');
 const { connection } = require("./database/dbConnection");
 
 
@@ -20,6 +21,8 @@ app.use(cookieParser())
 app.use(express.json())
 
 app.use('/api/v1', userRoute)
+
+app.use('/api/v1', cryptoRoute)
 
 app.listen(config.port, async ()=> {
     try{

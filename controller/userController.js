@@ -45,10 +45,16 @@ const signIn = async (req, res) => {
         if (!isMatch) {
             return res.status(401).send({ message: 'Either Email or password is wrong!!' });
         }
-        const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, { expiresIn: '2d' });
-        res.cookie('token', token,{httpOnly: true,path:'/'}).status(200).send({ message: 'User logged in successfully'});
+        const token = await jwt.sign({ id: user._id }, process.env.JWT_SECRET, { expiresIn: '2d' });
+        
+       return res.cookie('token', token,
+            {httpOnly: true,path:'/',
+            secure: process.env.NODE_ENV === 'production',
+            sameSite: 'None',
+            path: '/'
+        }).status(200).send({ message: 'User logged in successfully',token});
     } catch (e) {
-        res.status(400).send({ message: 'Something went wrong' });
+      return  res.status(400).send({ message: 'Something went wrong' });
     }
 }
 

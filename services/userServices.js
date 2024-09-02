@@ -10,6 +10,7 @@ const getUser = async (user) => {
 }
 
 const createUser = async (user) => {
+    try{
     const foundUser = await User.findOne({email: user.email})
     if (foundUser) {
         return {message: 'Email already exists'}
@@ -17,6 +18,10 @@ const createUser = async (user) => {
     const newUser = new User(user)
     await newUser.save()
     return newUser
+}catch(err) {
+    console.log(err)
+    return {message: 'Internal server error'}
+}
 }
 
 
