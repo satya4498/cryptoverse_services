@@ -48,7 +48,7 @@ const signIn = async (req, res) => {
         const token = await jwt.sign({ id: user._id }, process.env.JWT_SECRET, { expiresIn: '2d' });
         
        return res.cookie('token', token,
-            {httpOnly: true,path:'/',
+            {httpOnly: true,
             secure: process.env.NODE_ENV === 'production',
             sameSite: 'None',
             path: '/'
