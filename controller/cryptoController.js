@@ -1,4 +1,4 @@
-const {getExchanges,getCryptoCoinData,getCryptoCoinDetails} = require('../services/cryptoServices') 
+const {getExchanges,getCryptoCoinData,getCryptoCoinDetails,getCryptoCoinList} = require('../services/cryptoServices') 
 
 
 const exchangesHandler = async (req, res)=> {
@@ -27,9 +27,17 @@ const cryptoCoinDataHandler = async (req, res)=> {
         res.status(500).json({message: 'Internal server error'})
     }
 }
-
+const cryptoListHandler = async (req, res) => {
+    try{
+        const coins = await getCryptoCoinList()
+        res.status(200).json(coins)
+    }catch(error){
+        res.status(500).json({message: 'Internal server error'})
+    }
+}
 
 module.exports = {
     exchangesHandler,
-    cryptoCoinDataHandler
+    cryptoCoinDataHandler,
+    cryptoListHandler
 }
