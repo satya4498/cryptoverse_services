@@ -16,7 +16,6 @@ const userSchema = new Schema({
     required: true,
     minlength: 10,
     maxlength: 13,
-    match: /^\+\d{1,13}$/
   },
   date: {
     type: Date,
