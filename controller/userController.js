@@ -4,7 +4,7 @@ const jwt = require('jsonwebtoken');
 
 const signUp = async (req, res) => {
   try {
-    const { name, email, password } = req.body;
+    const { name, email, password,phone } = req.body;
 
     const existingUser = await getUser({ email });
     if (existingUser) {
@@ -17,6 +17,7 @@ const signUp = async (req, res) => {
       name,
       email,
       password: hashedPassword,
+      phone
     });
 
     let token
@@ -24,7 +25,7 @@ const signUp = async (req, res) => {
         token = jwt.sign({ id: newUser._id }, process.env.JWT_SECRET, { expiresIn: '2d' });
     }
     // Send a success response
-    res.cookie('token',token).status(201).send({ message: 'User created successfully', user: newUser });
+    res.cookie('token',token).status(201).send({ message: 'User created successfully', user: newUser, token: token });
   } catch (e) {
     res.status(500).send({ message: e.message });
   }
