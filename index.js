@@ -5,10 +5,23 @@ const config = require('./config');
 const {userRoute} = require('./routes/userRoutes');
 const {cryptoRoute} = require('./routes/cryptoRoute');
 const { connection } = require("./database/dbConnection");
+const swaggerUi = require('swagger-ui-express');
+const swaggerJsdoc = require('swagger-jsdoc');
 
+// Swagger configuration
+const swaggerOptions = {
+  swaggerDefinition: {
+    openapi: '3.0.0',
+    info: {
+      title: 'My API',
+      version: '1.0.0',
+      description: 'A simple API with Swagger documentation',
+    },
+  },
+  apis: ['./index.js'], // Path to your API routes
+};
 
-
-
+const swaggerSpec = swaggerJsdoc(swaggerOptions);
 const app = express();
 // app.use({
 //     origin: config.corsOrigin,
@@ -19,7 +32,7 @@ const app = express();
 app.use(cors({ origin: true, credentials: true }));
 app.use(cookieParser())
 app.use(express.json())
-
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 app.use('/api/v1', userRoute)
 
 app.use('/api/v1', cryptoRoute)
